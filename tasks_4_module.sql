@@ -1,24 +1,24 @@
 USE SalesOrders;
 GO
 
-/*1. В яких містах живуть наші клієнти?*/
+/*1. Г‚ ГїГЄГЁГµ Г¬ВіГ±ГІГ Гµ Г¦ГЁГўГіГІГј Г­Г ГёВі ГЄГ«ВіВєГ­ГІГЁ?*/
 SELECT DISTINCT CustCity
 FROM Customers;
 GO
 
-/*2. Показати поточний список наших працівників і номери їхніх телефонів.*/
+/*2. ГЏГ®ГЄГ Г§Г ГІГЁ ГЇГ®ГІГ®Г·Г­ГЁГ© Г±ГЇГЁГ±Г®ГЄ Г­Г ГёГЁГµ ГЇГ°Г Г¶ВіГўГ­ГЁГЄВіГў Ві Г­Г®Г¬ГҐГ°ГЁ ВїГµГ­ВіГµ ГІГҐГ«ГҐГґГ®Г­ВіГў.*/
 SELECT EmpFirstName,EmpLastName,EmpPhoneNumber
 FROM Employees;
 GO
 
-/*3. Продукти яких категорій ми пропонуємо в даний момент часу?*/
+/*3. ГЏГ°Г®Г¤ГіГЄГІГЁ ГїГЄГЁГµ ГЄГ ГІГҐГЈГ®Г°ВіГ© Г¬ГЁ ГЇГ°Г®ГЇГ®Г­ГіВєГ¬Г® Гў Г¤Г Г­ГЁГ© Г¬Г®Г¬ГҐГ­ГІ Г·Г Г±Гі?*/
 SELECT DISTINCT c.CategoryDescription
 FROM Products AS p JOIN Categories AS c
 ON p.CategoryID=c.CategoryID
 WHERE QuantityOnHand>0;
 GO
 
-/*4. Як називаються і скільки коштують продукти котрі ми перевозимо і до якої категорії вони відносяться.*/
+/*4. ГџГЄ Г­Г Г§ГЁГўГ ГѕГІГјГ±Гї Ві Г±ГЄВіГ«ГјГЄГЁ ГЄГ®ГёГІГіГѕГІГј ГЇГ°Г®Г¤ГіГЄГІГЁ ГЄГ®ГІГ°Ві Г¬ГЁ ГЇГҐГ°ГҐГўГ®Г§ГЁГ¬Г® Ві Г¤Г® ГїГЄГ®Вї ГЄГ ГІГҐГЈГ®Г°ВіВї ГўГ®Г­ГЁ ГўВіГ¤Г­Г®Г±ГїГІГјГ±Гї.*/
 SELECT DISTINCT p.ProductName,pv.WholesalePrice,c.CategoryDescription
 FROM Products AS p JOIN Categories AS c
 ON p.CategoryID=c.CategoryID
@@ -26,46 +26,46 @@ JOIN Product_Vendors AS pv
 ON p.ProductNumber=pv.ProductNumber
 GO
 
-/*5. Показати список імен поставщиків в порядку поштових індексів.*/
+/*5. ГЏГ®ГЄГ Г§Г ГІГЁ Г±ГЇГЁГ±Г®ГЄ ВіГ¬ГҐГ­ ГЇГ®Г±ГІГ ГўГ№ГЁГЄВіГў Гў ГЇГ®Г°ГїГ¤ГЄГі ГЇГ®ГёГІГ®ГўГЁГµ ВіГ­Г¤ГҐГЄГ±ВіГў.*/
 SELECT VendName
 FROM Vendors
 ORDER BY VendZipCode;
 GO
 
-/*6. Показати список працівників разом з їхніми телефонами і ідентифікаційними номерами і відсортувати його по прізвищах і іменах.*/
+/*6. ГЏГ®ГЄГ Г§Г ГІГЁ Г±ГЇГЁГ±Г®ГЄ ГЇГ°Г Г¶ВіГўГ­ГЁГЄВіГў Г°Г Г§Г®Г¬ Г§ ВїГµГ­ВіГ¬ГЁ ГІГҐГ«ГҐГґГ®Г­Г Г¬ГЁ Ві ВіГ¤ГҐГ­ГІГЁГґВіГЄГ Г¶ВіГ©Г­ГЁГ¬ГЁ Г­Г®Г¬ГҐГ°Г Г¬ГЁ Ві ГўВіГ¤Г±Г®Г°ГІГіГўГ ГІГЁ Г©Г®ГЈГ® ГЇГ® ГЇГ°ВіГ§ГўГЁГ№Г Гµ Ві ВіГ¬ГҐГ­Г Гµ.*/
 SELECT EmpFirstName,EmpLastName,EmpPhoneNumber,EmployeeID
 FROM Employees
 ORDER BY EmpLastName,EmpFirstName;
 GO
 
-/*7. Показати імена всіх поставщиків.*/
+/*7. ГЏГ®ГЄГ Г§Г ГІГЁ ВіГ¬ГҐГ­Г  ГўГ±ВіГµ ГЇГ®Г±ГІГ ГўГ№ГЁГЄВіГў.*/
 SELECT VendName
 FROM Vendors;
 GO
 
-/*8. В яких штатах знаходяться наші клієнти?*/
+/*8. Г‚ ГїГЄГЁГµ ГёГІГ ГІГ Гµ Г§Г­Г ГµГ®Г¤ГїГІГјГ±Гї Г­Г ГёВі ГЄГ«ВіВєГ­ГІГЁ?*/
 SELECT DISTINCT c.CustState
 FROM Customers AS c JOIN Orders AS o
 ON c.CustomerID=o.CustomerID
 GO
 
-/*9. Як називаються і скільки коштують товари, котрими ми торгуємо?*/
+/*9. ГџГЄ Г­Г Г§ГЁГўГ ГѕГІГјГ±Гї Ві Г±ГЄВіГ«ГјГЄГЁ ГЄГ®ГёГІГіГѕГІГј ГІГ®ГўГ Г°ГЁ, ГЄГ®ГІГ°ГЁГ¬ГЁ Г¬ГЁ ГІГ®Г°ГЈГіВєГ¬Г®?*/
 SELECT DISTINCT p.ProductName,od.QuotedPrice
 FROM Products AS p JOIN Order_Details AS od
 ON p.ProductNumber=od.ProductNumber;
 GO
 
-/*10. Показати всю інформацію про наших співробітниках.*/
+/*10. ГЏГ®ГЄГ Г§Г ГІГЁ ГўГ±Гѕ ВіГ­ГґГ®Г°Г¬Г Г¶ВіГѕ ГЇГ°Г® Г­Г ГёГЁГµ Г±ГЇВіГўГ°Г®ГЎВіГІГ­ГЁГЄГ Гµ.*/
 SELECT EmployeeID,EmpFirstName,EmpLastName,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpAreaCode,EmpPhoneNumber
 FROM Employees;
 GO
 
-/*11. Показати в алфавітному порядку список міст в котрих є наші поставщики і включити в нього імена всіх поставщиків, з якими ми працюємо в кожному місті.*/
+/*11. ГЏГ®ГЄГ Г§Г ГІГЁ Гў Г Г«ГґГ ГўВіГІГ­Г®Г¬Гі ГЇГ®Г°ГїГ¤ГЄГі Г±ГЇГЁГ±Г®ГЄ Г¬ВіГ±ГІ Гў ГЄГ®ГІГ°ГЁГµ Вє Г­Г ГёВі ГЇГ®Г±ГІГ ГўГ№ГЁГЄГЁ Ві ГўГЄГ«ГѕГ·ГЁГІГЁ Гў Г­ГјГ®ГЈГ® ВіГ¬ГҐГ­Г  ГўГ±ВіГµ ГЇГ®Г±ГІГ ГўГ№ГЁГЄВіГў, Г§ ГїГЄГЁГ¬ГЁ Г¬ГЁ ГЇГ°Г Г¶ГѕВєГ¬Г® Гў ГЄГ®Г¦Г­Г®Г¬Гі Г¬ВіГ±ГІВі.*/
 SELECT DISTINCT VendCity,VendName
 FROM Vendors;
 GO
 
-/*12. Скільки днів потрібно для доставки кожного замовлення?*/
+/*12. Г‘ГЄВіГ«ГјГЄГЁ Г¤Г­ВіГў ГЇГ®ГІГ°ВіГЎГ­Г® Г¤Г«Гї Г¤Г®Г±ГІГ ГўГЄГЁ ГЄГ®Г¦Г­Г®ГЈГ® Г§Г Г¬Г®ГўГ«ГҐГ­Г­Гї?*/
 SELECT od.OrderNumber,MAX(DaysToDeliver) AS DaysToDeliver
 FROM Product_Vendors AS pv JOIN Order_Details AS od
 ON od.ProductNumber=pv.ProductNumber
@@ -73,12 +73,12 @@ GROUP BY od.OrderNumber
 ORDER BY od.OrderNumber;
 GO
 
-/*13. Яка вартість запасів кожного товару*/
+/*13. ГџГЄГ  ГўГ Г°ГІВіГ±ГІГј Г§Г ГЇГ Г±ВіГў ГЄГ®Г¦Г­Г®ГЈГ® ГІГ®ГўГ Г°Гі*/
 SELECT ProductName,RetailPrice*QuantityOnHand AS [QuantityOnHand_Price]
 FROM Products;
 GO
 
-/*14. Скільки днів пройшло від дати замовлення до дати поставки кожного замовлення?*/
+/*14. Г‘ГЄВіГ«ГјГЄГЁ Г¤Г­ВіГў ГЇГ°Г®Г©ГёГ«Г® ГўВіГ¤ Г¤Г ГІГЁ Г§Г Г¬Г®ГўГ«ГҐГ­Г­Гї Г¤Г® Г¤Г ГІГЁ ГЇГ®Г±ГІГ ГўГЄГЁ ГЄГ®Г¦Г­Г®ГЈГ® Г§Г Г¬Г®ГўГ«ГҐГ­Г­Гї?*/
 ;WITH DeliveryTime AS(
 SELECT od.OrderNumber,MAX(DaysToDeliver) AS DaysToDeliver
 FROM Product_Vendors AS pv JOIN Order_Details AS od
@@ -91,7 +91,7 @@ ON Orders.OrderNumber=DeliveryTime.OrderNumber
 ORDER BY Orders.OrderNumber;
 GO
 
-/*15. Виведіть одним запитом список натуральних чисел від 1 до 10 000.*/
+/*15. Г‚ГЁГўГҐГ¤ВіГІГј Г®Г¤Г­ГЁГ¬ Г§Г ГЇГЁГІГ®Г¬ Г±ГЇГЁГ±Г®ГЄ Г­Г ГІГіГ°Г Г«ГјГ­ГЁГµ Г·ГЁГ±ГҐГ« ГўВіГ¤ 1 Г¤Г® 10 000.*/
 DECLARE @start INT=1, @end INT=10000;
 WITH cte AS (
     SELECT @start AS num
@@ -102,7 +102,7 @@ SELECT * FROM cte
 OPTION (MAXRECURSION 10000);
 GO
 
-/*16. Порахуйте запитом скільки субот і неділь в поточному році.*/
+/*16.ГЏГ®Г°Г ГµГіГ©ГІГҐ Г§Г ГЇГЁГІГ®Г¬ Г±ГЄВіГ«ГјГЄГЁ Г±ГіГЎГ®ГІ Ві Г­ГҐГ¤ВіГ«Гј Гў ГЇГ®ГІГ®Г·Г­Г®Г¬Гі Г°Г®Г¶Ві.*/
 DECLARE @startdate DATE='01/01/2019'    
 DECLARE @enddate DATE='31/12/2019'
 
@@ -118,7 +118,7 @@ DECLARE @enddate DATE='31/12/2019'
 SELECT DATENAME(WEEKDAY,[days]) AS [day], COUNT([days]) AS cnt_days 
 FROM CTE 
 WHERE DATENAME(WEEKDAY,[days]) = 'saturday' OR DATENAME(WEEKDAY,[days]) = 'sunday' 
-OR DATENAME(WEEKDAY,[days]) = 'суббота' OR DATENAME(WEEKDAY,[days]) = 'воскресенье'
+OR DATENAME(WEEKDAY,[days]) = 'Г±ГіГЎГЎГ®ГІГ ' OR DATENAME(WEEKDAY,[days]) = 'ГўГ®Г±ГЄГ°ГҐГ±ГҐГ­ГјГҐ'
 GROUP BY DATENAME(WEEKDAY,[days])
 OPTION (MAXRECURSION 400);
 GO
