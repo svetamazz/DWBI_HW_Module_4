@@ -1,24 +1,24 @@
 USE SalesOrders;
 GO
 
-/*1. Â ÿêèõ ì³ñòàõ æèâóòü íàø³ êë³ºíòè?*/
+/*1. В яких містах живуть наші клієнти?*/
 SELECT DISTINCT CustCity
 FROM Customers;
 GO
 
-/*2. Ïîêàçàòè ïîòî÷íèé ñïèñîê íàøèõ ïðàö³âíèê³â ³ íîìåðè ¿õí³õ òåëåôîí³â.*/
+/*2. Показати поточний список наших працівників і номери їхніх телефонів.*/
 SELECT EmpFirstName,EmpLastName,EmpPhoneNumber
 FROM Employees;
 GO
 
-/*3. Ïðîäóêòè ÿêèõ êàòåãîð³é ìè ïðîïîíóºìî â äàíèé ìîìåíò ÷àñó?*/
+/*3. Продукти яких категорій ми пропонуємо в даний момент часу?*/
 SELECT DISTINCT c.CategoryDescription
 FROM Products AS p JOIN Categories AS c
 ON p.CategoryID=c.CategoryID
 WHERE QuantityOnHand>0;
 GO
 
-/*4. ßê íàçèâàþòüñÿ ³ ñê³ëüêè êîøòóþòü ïðîäóêòè êîòð³ ìè ïåðåâîçèìî ³ äî ÿêî¿ êàòåãîð³¿ âîíè â³äíîñÿòüñÿ.*/
+/*4. Як називаються і скільки коштують продукти котрі ми перевозимо і до якої категорії вони відносяться.*/
 SELECT DISTINCT p.ProductName,pv.WholesalePrice,c.CategoryDescription
 FROM Products AS p JOIN Categories AS c
 ON p.CategoryID=c.CategoryID
@@ -26,46 +26,46 @@ JOIN Product_Vendors AS pv
 ON p.ProductNumber=pv.ProductNumber
 GO
 
-/*5. Ïîêàçàòè ñïèñîê ³ìåí ïîñòàâùèê³â â ïîðÿäêó ïîøòîâèõ ³íäåêñ³â.*/
+/*5. Показати список імен поставщиків в порядку поштових індексів.*/
 SELECT VendName
 FROM Vendors
 ORDER BY VendZipCode;
 GO
 
-/*6. Ïîêàçàòè ñïèñîê ïðàö³âíèê³â ðàçîì ç ¿õí³ìè òåëåôîíàìè ³ ³äåíòèô³êàö³éíèìè íîìåðàìè ³ â³äñîðòóâàòè éîãî ïî ïð³çâèùàõ ³ ³ìåíàõ.*/
+/*6. Показати список працівників разом з їхніми телефонами і ідентифікаційними номерами і відсортувати його по прізвищах і іменах.*/
 SELECT EmpFirstName,EmpLastName,EmpPhoneNumber,EmployeeID
 FROM Employees
 ORDER BY EmpLastName,EmpFirstName;
 GO
 
-/*7. Ïîêàçàòè ³ìåíà âñ³õ ïîñòàâùèê³â.*/
+/*7. Показати імена всіх поставщиків.*/
 SELECT VendName
 FROM Vendors;
 GO
 
-/*8. Â ÿêèõ øòàòàõ çíàõîäÿòüñÿ íàø³ êë³ºíòè?*/
+/*8. В яких штатах знаходяться наші клієнти?*/
 SELECT DISTINCT c.CustState
 FROM Customers AS c JOIN Orders AS o
 ON c.CustomerID=o.CustomerID
 GO
 
-/*9. ßê íàçèâàþòüñÿ ³ ñê³ëüêè êîøòóþòü òîâàðè, êîòðèìè ìè òîðãóºìî?*/
+/*9. Як називаються і скільки коштують товари, котрими ми торгуємо?*/
 SELECT DISTINCT p.ProductName,od.QuotedPrice
 FROM Products AS p JOIN Order_Details AS od
 ON p.ProductNumber=od.ProductNumber;
 GO
 
-/*10. Ïîêàçàòè âñþ ³íôîðìàö³þ ïðî íàøèõ ñï³âðîá³òíèêàõ.*/
+/*10. Показати всю інформацію про наших співробітниках.*/
 SELECT EmployeeID,EmpFirstName,EmpLastName,EmpStreetAddress,EmpCity,EmpState,EmpZipCode,EmpAreaCode,EmpPhoneNumber
 FROM Employees;
 GO
 
-/*11. Ïîêàçàòè â àëôàâ³òíîìó ïîðÿäêó ñïèñîê ì³ñò â êîòðèõ º íàø³ ïîñòàâùèêè ³ âêëþ÷èòè â íüîãî ³ìåíà âñ³õ ïîñòàâùèê³â, ç ÿêèìè ìè ïðàöþºìî â êîæíîìó ì³ñò³.*/
+/*11. Показати в алфавітному порядку список міст в котрих є наші поставщики і включити в нього імена всіх поставщиків, з якими ми працюємо в кожному місті.*/
 SELECT DISTINCT VendCity,VendName
 FROM Vendors;
 GO
 
-/*12. Ñê³ëüêè äí³â ïîòð³áíî äëÿ äîñòàâêè êîæíîãî çàìîâëåííÿ?*/
+/*12. Скільки днів потрібно для доставки кожного замовлення?*/
 SELECT od.OrderNumber,MAX(DaysToDeliver) AS DaysToDeliver
 FROM Product_Vendors AS pv JOIN Order_Details AS od
 ON od.ProductNumber=pv.ProductNumber
@@ -73,12 +73,12 @@ GROUP BY od.OrderNumber
 ORDER BY od.OrderNumber;
 GO
 
-/*13. ßêà âàðò³ñòü çàïàñ³â êîæíîãî òîâàðó*/
+/*13. Яка вартість запасів кожного товару*/
 SELECT ProductName,RetailPrice*QuantityOnHand AS [QuantityOnHand_Price]
 FROM Products;
 GO
 
-/*14. Ñê³ëüêè äí³â ïðîéøëî â³ä äàòè çàìîâëåííÿ äî äàòè ïîñòàâêè êîæíîãî çàìîâëåííÿ?*/
+/*14. Скільки днів пройшло від дати замовлення до дати поставки кожного замовлення?*/
 ;WITH DeliveryTime AS(
 SELECT od.OrderNumber,MAX(DaysToDeliver) AS DaysToDeliver
 FROM Product_Vendors AS pv JOIN Order_Details AS od
@@ -91,7 +91,7 @@ ON Orders.OrderNumber=DeliveryTime.OrderNumber
 ORDER BY Orders.OrderNumber;
 GO
 
-/*15. Âèâåä³òü îäíèì çàïèòîì ñïèñîê íàòóðàëüíèõ ÷èñåë â³ä 1 äî 10 000.*/
+/*15. Виведіть одним запитом список натуральних чисел від 1 до 10 000.*/
 DECLARE @start INT=1, @end INT=10000;
 WITH cte AS (
     SELECT @start AS num
@@ -102,7 +102,7 @@ SELECT * FROM cte
 OPTION (MAXRECURSION 10000);
 GO
 
-/*16.Ïîðàõóéòå çàïèòîì ñê³ëüêè ñóáîò ³ íåä³ëü â ïîòî÷íîìó ðîö³.*/
+/*16. Порахуйте запитом скільки субот і неділь в поточному році.*/
 DECLARE @startdate DATE='01/01/2019'    
 DECLARE @enddate DATE='31/12/2019'
 
@@ -118,7 +118,7 @@ DECLARE @enddate DATE='31/12/2019'
 SELECT DATENAME(WEEKDAY,[days]) AS [day], COUNT([days]) AS cnt_days 
 FROM CTE 
 WHERE DATENAME(WEEKDAY,[days]) = 'saturday' OR DATENAME(WEEKDAY,[days]) = 'sunday' 
-OR DATENAME(WEEKDAY,[days]) = 'ñóááîòà' OR DATENAME(WEEKDAY,[days]) = 'âîñêðåñåíüå'
+OR DATENAME(WEEKDAY,[days]) = 'суббота' OR DATENAME(WEEKDAY,[days]) = 'воскресенье'
 GROUP BY DATENAME(WEEKDAY,[days])
 OPTION (MAXRECURSION 400);
 GO
