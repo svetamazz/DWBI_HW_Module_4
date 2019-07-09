@@ -103,8 +103,8 @@ OPTION (MAXRECURSION 10000);
 GO
 
 /*16. Порахуйте запитом скільки субот і неділь в поточному році.*/
-DECLARE @startdate DATE='01/01/2019'    
-DECLARE @enddate DATE='31/12/2019'
+DECLARE @startdate DATE='2019/01/01'    
+DECLARE @enddate DATE='2019/12/31'
 
 ;WITH  CTE AS
 (
